@@ -79,7 +79,7 @@ public class KafkaProducerService
                 Value = JsonSerializer.Serialize(tradeMessage)
             };
 
-            var result = await _producer.ProduceAsync("trades", message);
+            var result = await _producer.ProduceAsync("binance-trades", message);
 
         }
         catch (Exception ex)

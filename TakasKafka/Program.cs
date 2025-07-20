@@ -93,6 +93,7 @@ public class Program
         builder.Services.AddHostedService<OrderConsumerService>();
         builder.Services.AddScoped<KafkaProducerService>();
         builder.Services.AddHostedService<BinanceTradeProducer>();
+        builder.Services.AddHostedService<BinanceConsumerService>();
         builder.Services.AddSignalR();
         var app = builder.Build();
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
@@ -113,6 +114,12 @@ public class Program
                     new TopicSpecification
                     {
                         Name="trades",
+                        ReplicationFactor=1,
+                        NumPartitions=1
+                    },
+                    new TopicSpecification
+                    {
+                        Name="binance-trades",
                         ReplicationFactor=1,
                         NumPartitions=1
                     }
